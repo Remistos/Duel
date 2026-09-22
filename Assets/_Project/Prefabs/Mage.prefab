@@ -9,7 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8143408291659612049}
-  - component: {fileID: 6508928768806325014}
+  - component: {fileID: -9117874447753226945}
+  - component: {fileID: -3607498389888252144}
+  - component: {fileID: -4612192149975948482}
+  - component: {fileID: -4845740168867641493}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -33,7 +36,7 @@ Transform:
   - {fileID: 4763188260591253063}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6508928768806325014
+--- !u!114 &-9117874447753226945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,18 +45,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 6026816773114960540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9628030601b77a4e98f4908d2e0a386, type: 3}
+  m_Script: {fileID: 11500000, guid: c3bb138d1b84b9f4b929622eb9d4edfd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mage
-  ClassName: "\u041C\u0430\u0433"
-  Health: 110
-  DamageBase: 0
-  dmg: 0
-  IsStunned: 0
-  stunDuration: 1
-  PoisonDuration: 0
-  DebuffDuration: 0
-  DamageMultiplier: 1
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.CharacterHealth
+--- !u!114 &-3607498389888252144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026816773114960540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3b6a07bdfcdc242a87048c05a3ceb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.CharacterEffects
+--- !u!114 &-4612192149975948482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026816773114960540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd923ee7edc0b8541a5fcde5c05d542b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.Character
+  definition: {fileID: 11400000, guid: 9ee96c5cc391c26498283814e76a0793, type: 2}
+--- !u!114 &-4845740168867641493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026816773114960540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f730e60d29878b41a959b86cfb341f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.MageAttack
 --- !u!1001 &4761967414590685863
 PrefabInstance:
   m_ObjectHideFlags: 0

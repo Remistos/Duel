@@ -9,7 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 661760453206006867}
-  - component: {fileID: 7286856125732209180}
+  - component: {fileID: 5057584726276772675}
+  - component: {fileID: -5325427783756486613}
+  - component: {fileID: -4477896695510519041}
+  - component: {fileID: -8883245597847815610}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -33,7 +36,7 @@ Transform:
   - {fileID: 4208588491910304119}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7286856125732209180
+--- !u!114 &5057584726276772675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,18 +45,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 3617113275884661877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64ef9f1001a326446a3da26eaa67e1ba, type: 3}
+  m_Script: {fileID: 11500000, guid: c3bb138d1b84b9f4b929622eb9d4edfd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Archer
-  ClassName: "\u041B\u0443\u0447\u043D\u0438\u043A"
-  Health: 110
-  DamageBase: 0
-  dmg: 0
-  IsStunned: 0
-  stunDuration: 1
-  PoisonDuration: 0
-  DebuffDuration: 0
-  DamageMultiplier: 1
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.CharacterHealth
+--- !u!114 &-5325427783756486613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617113275884661877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3b6a07bdfcdc242a87048c05a3ceb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.CharacterEffects
+--- !u!114 &-4477896695510519041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617113275884661877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd923ee7edc0b8541a5fcde5c05d542b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.Character
+  definition: {fileID: 11400000, guid: d72b0e875d50f9a4094b66aa791951b7, type: 2}
+--- !u!114 &-8883245597847815610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617113275884661877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed1813047f29694cb9af746ae980088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.ArcherAttack
 --- !u!1001 &7884689521161030130
 PrefabInstance:
   m_ObjectHideFlags: 0

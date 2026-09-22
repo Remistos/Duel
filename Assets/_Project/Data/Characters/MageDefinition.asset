@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d97db60035967c4ba5cad78887f6467, type: 3}
+  m_Name: MageDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.Characters.CharacterDefinition
+  <ClassName>k__BackingField: "\u041C\u0430\u0433"
+  <MaxHealth>k__BackingField: 100
+  <Damage>k__BackingField: 15
+  <NormalDamageMultiplier>k__BackingField: 1
+  <PoisonDamage>k__BackingField: 0
+  <PoisonDuration>k__BackingField: 0
+  <StunChance>k__BackingField: 0
+  <StunDuration>k__BackingField: 0
+  <DebuffDuration>k__BackingField: 2
+  <DebuffDamageMultiplier>k__BackingField: 0.5
