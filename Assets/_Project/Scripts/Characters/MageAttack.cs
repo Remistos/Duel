@@ -1,5 +1,4 @@
 using Duels.Battle;
-using UnityEngine;
 
 namespace Duels.Characters
 {

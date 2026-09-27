@@ -7,11 +7,14 @@ namespace Duels.Characters
     {
         protected Character Character { get; private set; }
 
-        protected CharacterDefinition Definition => Character.Definition;
+        protected CharacterDefinition Definition =>
+            Character.Definition;
 
-        protected CharacterHealth Health => Character.Health;
+        protected CharacterHealth Health =>
+            Character.Health;
 
-        protected CharacterEffects Effects => Character.Effects;
+        protected CharacterEffects Effects =>
+            Character.Effects;
 
         protected virtual void Awake()
         {
@@ -26,7 +29,8 @@ namespace Duels.Characters
 
         protected void DealDamage(Character target)
         {
-            target.Health.TakeDamage(CalculateDamage());
+            target.Health.TakeDamage(
+                CalculateDamage());
         }
     }
 }

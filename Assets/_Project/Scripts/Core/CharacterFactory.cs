@@ -27,7 +27,9 @@ namespace Duels
 
         private Character GetRandomPrefab()
         {
-            int index = Random.Range(0, characterPrefabs.Length);
+            int index = Random.Range(
+                0,
+                characterPrefabs.Length);
 
             return characterPrefabs[index];
         }
