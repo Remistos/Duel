@@ -44,7 +44,9 @@ namespace Duels.Characters
             PoisonDuration = duration;
         }
 
-        public void ApplyDebuff(int duration, float damageMultiplier)
+        public void ApplyDebuff(
+            int duration,
+            float damageMultiplier)
         {
             if (duration <= 0)
             {
@@ -55,10 +57,12 @@ namespace Duels.Characters
             DamageMultiplier = damageMultiplier;
         }
 
-        public void ProcessEffects(CharacterHealth health)
+        public int ProcessEffects()
         {
-            ProcessPoison(health);
+            int damage = ProcessPoison();
             ProcessDebuff();
+
+            return damage;
         }
 
         public void ProcessStun()
@@ -77,20 +81,23 @@ namespace Duels.Characters
             }
         }
 
-        private void ProcessPoison(CharacterHealth health)
+        private int ProcessPoison()
         {
             if (PoisonDuration <= 0)
             {
-                return;
+                return 0;
             }
 
-            health.TakeDamage(poisonDamage);
             PoisonDuration--;
+
+            int damage = poisonDamage;
 
             if (PoisonDuration == 0)
             {
                 poisonDamage = 0;
             }
+
+            return damage;
         }
 
         private void ProcessDebuff()

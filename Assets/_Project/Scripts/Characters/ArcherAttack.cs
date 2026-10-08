@@ -8,7 +8,7 @@ namespace Duels.Characters
         {
             DealDamage(target);
 
-            target.Effects.ApplyPoison(
+            target.ApplyPoison(
                 Definition.PoisonDamage,
                 Definition.PoisonDuration);
         }

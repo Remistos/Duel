@@ -11,7 +11,14 @@ namespace Duels.UI
 
         public void Initialize(BattleEvents events)
         {
+            Unsubscribe();
+
             battleEvents = events;
+
+            if (battleEvents == null)
+            {
+                return;
+            }
 
             battleEvents.StateChanged += OnStateChanged;
             battleEvents.BattleFinished += OnBattleFinished;
@@ -19,13 +26,7 @@ namespace Duels.UI
 
         private void OnDestroy()
         {
-            if (battleEvents == null)
-            {
-                return;
-            }
-
-            battleEvents.StateChanged -= OnStateChanged;
-            battleEvents.BattleFinished -= OnBattleFinished;
+            Unsubscribe();
         }
 
         private void OnStateChanged(BattleState state)
@@ -36,6 +37,17 @@ namespace Duels.UI
         private void OnBattleFinished(string winner)
         {
             view.ShowWinScreen(winner);
+        }
+
+        private void Unsubscribe()
+        {
+            if (battleEvents == null)
+            {
+                return;
+            }
+
+            battleEvents.StateChanged -= OnStateChanged;
+            battleEvents.BattleFinished -= OnBattleFinished;
         }
     }
 }

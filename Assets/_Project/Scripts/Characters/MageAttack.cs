@@ -8,7 +8,7 @@ namespace Duels.Characters
         {
             DealDamage(target);
 
-            target.Effects.ApplyDebuff(
+            target.ApplyDebuff(
                 Definition.DebuffDuration,
                 Definition.DebuffDamageMultiplier);
         }

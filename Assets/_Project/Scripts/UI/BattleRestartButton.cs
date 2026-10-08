@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Duels.UI
@@ -8,21 +8,21 @@ namespace Duels.UI
     {
         [SerializeField] private Button restartButton;
 
+        public event Action RestartRequested;
+
         private void Awake()
         {
-            restartButton.onClick.AddListener(RestartBattle);
+            restartButton.onClick.AddListener(OnRestartClicked);
         }
 
         private void OnDestroy()
         {
-            restartButton.onClick.RemoveListener(RestartBattle);
+            restartButton.onClick.RemoveListener(OnRestartClicked);
         }
 
-        private void RestartBattle()
+        private void OnRestartClicked()
         {
-            Scene currentScene = SceneManager.GetActiveScene();
-
-            SceneManager.LoadScene(currentScene.buildIndex);
+            RestartRequested?.Invoke();
         }
     }
 }

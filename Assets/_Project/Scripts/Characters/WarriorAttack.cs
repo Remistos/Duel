@@ -11,7 +11,7 @@ namespace Duels.Characters
 
             if (Random.value <= Definition.StunChance)
             {
-                target.Effects.ApplyStun(
+                target.ApplyStun(
                     Definition.StunDuration);
             }
         }

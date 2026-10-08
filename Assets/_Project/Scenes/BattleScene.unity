@@ -912,6 +912,7 @@ MonoBehaviour:
   factory: {fileID: 393329129}
   battleSystem: {fileID: 393329131}
   battlePresenter: {fileID: 1697854934}
+  restartButton: {fileID: 650251430}
 --- !u!114 &393329131
 MonoBehaviour:
   m_ObjectHideFlags: 0

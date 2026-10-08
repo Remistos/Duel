@@ -17,38 +17,54 @@ namespace Duels.Battle
             turnWait = new WaitForSeconds(turnDelay);
         }
 
-        public IEnumerator Fight(Character player1, Character player2)
+        public IEnumerator Fight(
+            Character player1,
+            Character player2)
         {
-            if (!TryGetAttack(player1, out ICharacterAttack player1Attack) ||
-                !TryGetAttack(player2, out ICharacterAttack player2Attack))
+            if (!TryGetAttack(
+                    player1,
+                    out ICharacterAttack player1Attack) ||
+                !TryGetAttack(
+                    player2,
+                    out ICharacterAttack player2Attack))
             {
                 yield break;
             }
 
             PublishState(player1, player2);
 
-            while (IsAlive(player1) && IsAlive(player2))
+            while (player1.IsAlive && player2.IsAlive)
             {
-                yield return Turn(player1, player2, player1Attack);
+                yield return Turn(
+                    player1,
+                    player2,
+                    player1Attack);
 
                 PublishState(player1, player2);
 
-                if (!IsAlive(player2))
+                if (!player2.IsAlive)
+                {
                     break;
+                }
 
                 yield return turnWait;
 
-                yield return Turn(player2, player1, player2Attack);
+                yield return Turn(
+                    player2,
+                    player1,
+                    player2Attack);
 
                 PublishState(player1, player2);
 
-                if (!IsAlive(player1))
+                if (!player1.IsAlive)
+                {
                     break;
+                }
 
                 yield return turnWait;
             }
 
-            string winner = IsAlive(player1)
+            string winner = player1.IsAlive
                 ? player1.Definition.ClassName
                 : player2.Definition.ClassName;
 
@@ -60,11 +76,11 @@ namespace Duels.Battle
             Character target,
             ICharacterAttack attack)
         {
-            attacker.Effects.ProcessEffects(attacker.Health);
+            attacker.ProcessEffects();
 
-            if (attacker.Effects.IsStunned)
+            if (attacker.IsStunned)
             {
-                attacker.Effects.ProcessStun();
+                attacker.ProcessStun();
             }
             else
             {
@@ -79,29 +95,10 @@ namespace Duels.Battle
             Character player2)
         {
             BattleState state = new BattleState(
-                player1.Definition.ClassName,
-                player1.Health.CurrentHealth,
-                player1.Health.MaxHealth,
-                player1.CurrentDamage,
-                player1.Effects.IsStunned,
-                player1.Effects.PoisonDuration,
-                player1.Effects.DebuffDuration,
-
-                player2.Definition.ClassName,
-                player2.Health.CurrentHealth,
-                player2.Health.MaxHealth,
-                player2.CurrentDamage,
-                player2.Effects.IsStunned,
-                player2.Effects.PoisonDuration,
-                player2.Effects.DebuffDuration
-            );
+                player1.GetState(),
+                player2.GetState());
 
             battleEvents.RaiseStateChanged(state);
-        }
-
-        private bool IsAlive(Character character)
-        {
-            return character.Health.IsAlive();
         }
 
         private bool TryGetAttack(

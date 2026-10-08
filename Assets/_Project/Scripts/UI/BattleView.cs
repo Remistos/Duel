@@ -1,3 +1,4 @@
+using System.Collections;
 using Duels.Battle;
 using TMPro;
 using UnityEngine;
@@ -32,71 +33,109 @@ namespace Duels.UI
         [SerializeField] private GameObject winScreen;
         [SerializeField] private TextMeshProUGUI winText;
 
-        private float player1TargetHealth;
-        private float player2TargetHealth;
-
-        private void Awake()
-        {
-            player1TargetHealth = player1HealthBar.value;
-            player2TargetHealth = player2HealthBar.value;
-        }
-
-        private void Update()
-        {
-            player1HealthBar.value = Mathf.Lerp(
-                player1HealthBar.value,
-                player1TargetHealth,
-                Time.deltaTime * smoothSpeed);
-
-            player2HealthBar.value = Mathf.Lerp(
-                player2HealthBar.value,
-                player2TargetHealth,
-                Time.deltaTime * smoothSpeed);
-
-            UpdateHealthColor(
-                player1Fill,
-                player1HealthBar.value,
-                player1HealthBar.maxValue);
-
-            UpdateHealthColor(
-                player2Fill,
-                player2HealthBar.value,
-                player2HealthBar.maxValue);
-        }
+        private Coroutine player1HealthRoutine;
+        private Coroutine player2HealthRoutine;
 
         public void ShowState(BattleState state)
         {
-            player1Name.text = state.Player1Name;
-            player1Health.text =
-                $"HP: {state.Player1Health}/{state.Player1MaxHealth}";
-            player1Damage.text =
-                $"Урон: {state.Player1Damage}";
-            player1Effects.text = BuildEffectsText(
-                state.Player1Stunned,
-                state.Player1PoisonDuration,
-                state.Player1DebuffDuration);
-
-            player1HealthBar.maxValue = state.Player1MaxHealth;
-            player1TargetHealth = state.Player1Health;
-
-            player2Name.text = state.Player2Name;
-            player2Health.text =
-                $"HP: {state.Player2Health}/{state.Player2MaxHealth}";
-            player2Damage.text =
-                $"Урон: {state.Player2Damage}";
-            player2Effects.text = BuildEffectsText(
-                state.Player2Stunned,
-                state.Player2PoisonDuration,
-                state.Player2DebuffDuration);
-
-            player2HealthBar.maxValue = state.Player2MaxHealth;
-            player2TargetHealth = state.Player2Health;
+            ShowPlayer1(state.Player1);
+            ShowPlayer2(state.Player2);
         }
 
         public void ShowWinScreen(string winner)
         {
             winScreen.SetActive(true);
             winText.text = $"Победитель: {winner}";
+        }
+
+        private void ShowPlayer1(PlayerState state)
+        {
+            player1Name.text = state.Name;
+            player1Health.text =
+                $"HP: {state.Health}/{state.MaxHealth}";
+            player1Damage.text =
+                $"Урон: {state.Damage}";
+            player1Effects.text = BuildEffectsText(
+                state.Stunned,
+                state.PoisonDuration,
+                state.DebuffDuration);
+
+            player1HealthBar.maxValue = state.MaxHealth;
+
+            StartHealthAnimation(
+                player1HealthBar,
+                player1Fill,
+                state.Health,
+                ref player1HealthRoutine);
+        }
+
+        private void ShowPlayer2(PlayerState state)
+        {
+            player2Name.text = state.Name;
+            player2Health.text =
+                $"HP: {state.Health}/{state.MaxHealth}";
+            player2Damage.text =
+                $"Урон: {state.Damage}";
+            player2Effects.text = BuildEffectsText(
+                state.Stunned,
+                state.PoisonDuration,
+                state.DebuffDuration);
+
+            player2HealthBar.maxValue = state.MaxHealth;
+
+            StartHealthAnimation(
+                player2HealthBar,
+                player2Fill,
+                state.Health,
+                ref player2HealthRoutine);
+        }
+
+        private void StartHealthAnimation(
+            Slider healthBar,
+            Image fill,
+            float targetHealth,
+            ref Coroutine routine)
+        {
+            if (routine != null)
+            {
+                StopCoroutine(routine);
+            }
+
+            routine = StartCoroutine(
+                AnimateHealth(
+                    healthBar,
+                    fill,
+                    targetHealth));
+        }
+
+        private IEnumerator AnimateHealth(
+            Slider healthBar,
+            Image fill,
+            float targetHealth)
+        {
+            while (!Mathf.Approximately(
+                healthBar.value,
+                targetHealth))
+            {
+                healthBar.value = Mathf.Lerp(
+                    healthBar.value,
+                    targetHealth,
+                    Time.deltaTime * smoothSpeed);
+
+                UpdateHealthColor(
+                    fill,
+                    healthBar.value,
+                    healthBar.maxValue);
+
+                yield return null;
+            }
+
+            healthBar.value = targetHealth;
+
+            UpdateHealthColor(
+                fill,
+                healthBar.value,
+                healthBar.maxValue);
         }
 
         private string BuildEffectsText(

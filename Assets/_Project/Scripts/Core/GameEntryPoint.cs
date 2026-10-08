@@ -2,6 +2,7 @@ using Duels.Battle;
 using Duels.Characters;
 using Duels.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Duels
 {
@@ -10,6 +11,7 @@ namespace Duels
         [SerializeField] private CharacterFactory factory;
         [SerializeField] private BattleSystem battleSystem;
         [SerializeField] private BattlePresenter battlePresenter;
+        [SerializeField] private BattleRestartButton restartButton;
 
         private BattleEvents battleEvents;
 
@@ -20,11 +22,29 @@ namespace Duels
             battleSystem.Initialize(battleEvents);
             battlePresenter.Initialize(battleEvents);
 
+            restartButton.RestartRequested += RestartBattle;
+
             Character player1 = factory.CreatePlayer(true);
             Character player2 = factory.CreatePlayer(false);
 
             StartCoroutine(
                 battleSystem.Fight(player1, player2));
+        }
+
+        private void OnDestroy()
+        {
+            if (restartButton != null)
+            {
+                restartButton.RestartRequested -= RestartBattle;
+            }
+        }
+
+        private void RestartBattle()
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+
+            SceneManager.LoadScene(
+                currentScene.buildIndex);
         }
     }
 }

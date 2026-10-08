@@ -8,6 +8,8 @@ namespace Duels.Characters
 
         public int MaxHealth { get; private set; }
 
+        public bool IsAlive => CurrentHealth > 0;
+
         public void Initialize(int maxHealth)
         {
             MaxHealth = maxHealth;
@@ -16,12 +18,14 @@ namespace Duels.Characters
 
         public void TakeDamage(int damage)
         {
-            CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
-        }
+            if (damage <= 0)
+            {
+                return;
+            }
 
-        public bool IsAlive()
-        {
-            return CurrentHealth > 0;
+            CurrentHealth = Mathf.Max(
+                CurrentHealth - damage,
+                0);
         }
     }
 }
