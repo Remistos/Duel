@@ -3,95 +3,82 @@ using UnityEngine;
 
 namespace Duels.Characters
 {
-    [RequireComponent(typeof(CharacterHealth))]
-    [RequireComponent(typeof(CharacterEffects))]
     public sealed class Character : MonoBehaviour
     {
-        [SerializeField] private CharacterDefinition definition;
+        [field: SerializeField]
+        public CharacterDefinition Definition { get; private set; }
 
         private CharacterHealth health;
         private CharacterEffects effects;
 
-        public CharacterDefinition Definition { get; private set; }
-
         public int CurrentDamage =>
-            Mathf.RoundToInt(
-                definition.Damage * effects.DamageMultiplier);
+    Definition == null || effects == null
+        ? 0
+        : Mathf.RoundToInt(
+            Definition.Damage * effects.DamageMultiplier);
 
-        public bool IsAlive =>
-            health.IsAlive;
+        public bool IsAlive => health != null && health.IsAlive;
 
-        public bool IsStunned =>
-            effects.IsStunned;
+        public bool IsStunned => effects != null && effects.IsStunned;
 
         private void Awake()
         {
-            health = GetComponent<CharacterHealth>();
-            effects = GetComponent<CharacterEffects>();
-
-            if (definition == null)
+            if (Definition == null)
             {
                 Debug.LogError(
-                    $"CharacterDefinition не назначен в {name}.",
+                    $"CharacterDefinition не назначен у персонажа {name}.",
                     this);
 
+                enabled = false;
                 return;
             }
 
-            Definition = definition;
+            health = new CharacterHealth(Definition.MaxHealth);
 
-            health.Initialize(definition.MaxHealth);
-            effects.Initialize(
-                definition.NormalDamageMultiplier);
+            effects = new CharacterEffects(
+                Definition.NormalDamageMultiplier);
         }
 
         public void TakeDamage(int damage)
         {
-            health.TakeDamage(damage);
+            health?.TakeDamage(damage);
         }
 
         public void ProcessEffects()
         {
+            if (effects == null)
+                return;
+
             int poisonDamage = effects.ProcessEffects();
 
             if (poisonDamage > 0)
-            {
                 TakeDamage(poisonDamage);
-            }
         }
 
         public void ProcessStun()
         {
-            effects.ProcessStun();
+            effects?.ProcessStun();
         }
 
         public void ApplyStun(int duration)
         {
-            effects.ApplyStun(duration);
+            effects?.ApplyStun(duration);
         }
 
-        public void ApplyPoison(
-            int damage,
-            int duration)
+        public void ApplyPoison(int damage, int duration)
         {
-            effects.ApplyPoison(
-                damage,
-                duration);
+            effects?.ApplyPoison(damage, duration);
         }
 
-        public void ApplyDebuff(
-            int duration,
-            float damageMultiplier)
+        public void ApplyDebuff(int duration, float damageMultiplier)
         {
-            effects.ApplyDebuff(
-                duration,
-                damageMultiplier);
+            effects?.ApplyDebuff(duration, damageMultiplier);
         }
 
         public PlayerState GetState()
         {
             return new PlayerState(
-                definition.ClassName,
+                Definition.ClassName,
                 health.CurrentHealth,
                 health.MaxHealth,
                 CurrentDamage,

@@ -21,91 +21,48 @@ namespace Duels.Battle
             Character player1,
             Character player2)
         {
-            if (!TryGetAttack(
-                    player1,
-                    out ICharacterAttack player1Attack) ||
-                !TryGetAttack(
-                    player2,
-                    out ICharacterAttack player2Attack))
+            if (battleEvents == null ||
+                player1 == null ||
+                player2 == null)
             {
+                Debug.LogError(
+                    "BattleSystem не инициализирован или персонажи не назначены.",
+                    this);
+
                 yield break;
             }
 
-            PublishState(player1, player2);
-
-            while (player1.IsAlive && player2.IsAlive)
+            if (!player1.TryGetComponent(
+                    out ICharacterAttack player1Attack) ||
+                !player2.TryGetComponent(
+                    out ICharacterAttack player2Attack))
             {
-                yield return Turn(
-                    player1,
-                    player2,
-                    player1Attack);
+                Debug.LogError(
+                    "У одного из персонажей отсутствует компонент атаки.",
+                    this);
 
-                PublishState(player1, player2);
-
-                if (!player2.IsAlive)
-                {
-                    break;
-                }
-
-                yield return turnWait;
-
-                yield return Turn(
-                    player2,
-                    player1,
-                    player2Attack);
-
-                PublishState(player1, player2);
-
-                if (!player1.IsAlive)
-                {
-                    break;
-                }
-
-                yield return turnWait;
+                yield break;
             }
 
-            string winner = player1.IsAlive
-                ? player1.Definition.ClassName
-                : player2.Definition.ClassName;
+            BattleController controller = new BattleController(
+                player1,
+                player2,
+                player1Attack,
+                player2Attack,
+                battleEvents);
 
-            battleEvents.RaiseBattleFinished(winner);
-        }
+            controller.StartBattle();
 
-        private IEnumerator Turn(
-            Character attacker,
-            Character target,
-            ICharacterAttack attack)
-        {
-            attacker.ProcessEffects();
-
-            if (attacker.IsStunned)
+            while (!controller.IsFinished)
             {
-                attacker.ProcessStun();
-            }
-            else
-            {
-                attack.Attack(target);
+                controller.PerformTurn();
+                controller.PublishState();
+
+                if (!controller.IsFinished)
+                    yield return turnWait;
             }
 
-            yield return null;
-        }
-
-        private void PublishState(
-            Character player1,
-            Character player2)
-        {
-            BattleState state = new BattleState(
-                player1.GetState(),
-                player2.GetState());
-
-            battleEvents.RaiseStateChanged(state);
-        }
-
-        private bool TryGetAttack(
-            Character character,
-            out ICharacterAttack attack)
-        {
-            return character.TryGetComponent(out attack);
+            controller.FinishBattle();
         }
     }
 }

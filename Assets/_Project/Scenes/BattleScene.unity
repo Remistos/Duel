@@ -1384,9 +1384,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 90c08e13b93a3c546b326a4d4489e886, type: 3}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: RestartBattle
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1778,6 +1778,7 @@ GameObject:
   - component: {fileID: 1219959624}
   - component: {fileID: 1219959626}
   - component: {fileID: 1219959625}
+  - component: {fileID: 1219959627}
   m_Layer: 5
   m_Name: WinScreen
   m_TagString: Untagged
@@ -1844,6 +1845,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219959623}
   m_CullTransparentMesh: 1
+--- !u!114 &1219959627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219959623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add1647c50cf84d4ba7fed8ddaed0314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.UI.BattleResultView
+  winScreen: {fileID: 1219959623}
+  winText: {fileID: 59381333}
 --- !u!1 &1240126254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,6 +2037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1395202518}
   - component: {fileID: 1395202520}
+  - component: {fileID: 1395202521}
   m_Layer: 5
   m_Name: PlayerPanel1
   m_TagString: Untagged
@@ -2060,6 +2076,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395202517}
   m_CullTransparentMesh: 1
+--- !u!114 &1395202521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395202517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc434ab52a68db540a45fe3476867489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.UI.PlayerBattleView
+  smoothSpeed: 5
+  lowHealthThreshold: 0.3
+  mediumHealthThreshold: 0.6
+  playerName: {fileID: 361353326}
+  playerHealth: {fileID: 1321531153}
+  playerDamage: {fileID: 103762457}
+  playerEffects: {fileID: 999271731}
+  healthBar: {fileID: 165221952}
+  healthFill: {fileID: 1797549953}
 --- !u!1 &1523532642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,8 +2352,8 @@ GameObject:
   - component: {fileID: 1697854932}
   - component: {fileID: 1697854931}
   - component: {fileID: 1697854930}
-  - component: {fileID: 1697854935}
   - component: {fileID: 1697854934}
+  - component: {fileID: 1697854935}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2436,23 +2473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6abf614a428c94689a3e8a2ae3aa13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Duels.UI.BattleView
-  smoothSpeed: 5
-  lowHealthThreshold: 0.3
-  mediumHealthThreshold: 0.6
-  player1Name: {fileID: 361353326}
-  player1Health: {fileID: 1321531153}
-  player1Damage: {fileID: 103762457}
-  player1Effects: {fileID: 999271731}
-  player1HealthBar: {fileID: 165221952}
-  player1Fill: {fileID: 1797549953}
-  player2Name: {fileID: 1620379334}
-  player2Health: {fileID: 477379883}
-  player2Damage: {fileID: 1898233131}
-  player2Effects: {fileID: 2143163987}
-  player2HealthBar: {fileID: 73393379}
-  player2Fill: {fileID: 1783144646}
-  winScreen: {fileID: 1219959623}
-  winText: {fileID: 59381333}
+  player1View: {fileID: 1395202521}
+  player2View: {fileID: 1863749641}
+  resultView: {fileID: 1219959627}
 --- !u!1 &1783144644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +2636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1863749638}
   - component: {fileID: 1863749640}
+  - component: {fileID: 1863749641}
   m_Layer: 5
   m_Name: PlayerPanel2
   m_TagString: Untagged
@@ -2651,6 +2675,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863749637}
   m_CullTransparentMesh: 1
+--- !u!114 &1863749641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863749637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc434ab52a68db540a45fe3476867489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Duels.UI.PlayerBattleView
+  smoothSpeed: 5
+  lowHealthThreshold: 0.3
+  mediumHealthThreshold: 0.6
+  playerName: {fileID: 1620379334}
+  playerHealth: {fileID: 477379883}
+  playerDamage: {fileID: 1898233131}
+  playerEffects: {fileID: 2143163987}
+  healthBar: {fileID: 73393379}
+  healthFill: {fileID: 1783144646}
 --- !u!1 &1879282127
 GameObject:
   m_ObjectHideFlags: 0
